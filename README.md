@@ -14,6 +14,7 @@ just run `npx done`.
 ### Usage
 
 `done` will help you automatically generate a release, follow SemVer spec.
+
 **Recommended use of NPX**. Please do not download this package. (required npm > 5.2.0, [what is npx](https://blog.npmjs.org/post/162869356040/introducing-npx-an-npm-package-runner).)
 
 ```bash
