@@ -1,0 +1,6 @@
+extends: '@haifeng-fe/tslint-config'
+
+linterOptions:
+  exclude:
+    - 'dist/**'
+    - 'node_modules/**'
