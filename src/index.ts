@@ -20,11 +20,12 @@ const param = args._[0]
   if (args['--help']) return options.help()
   if (args['--version']) return options.version()
   if (param === 'configs') return commander.showConfigPath()
+  if (param === 'push') return commander.onlyPush(configs.remote)
   
   const type = await changes.getType()
   commander.checkGitOrigin()
 
   const nextVersion = events.updatePackage(type, null) as string
   const tagMessage = await events.updateHooks(nextVersion, type)
-  commander.commitAll(nextVersion, configs.remote, tagMessage, configs.autoPush)
+  await commander.commitAll(nextVersion, configs.remote, tagMessage, configs.autoPush)
 })()

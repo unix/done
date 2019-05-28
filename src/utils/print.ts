@@ -2,6 +2,10 @@ import chalk from 'chalk'
 
 const prefix = chalk.red('cannot release')
 
+export const activeColor = (text: string): string => {
+  return chalk.hex('#bdbdbd')(text)
+}
+
 export const selectVersion = (version: string): void => {
   const text = chalk.hex('#bdbdbd')(version.toLocaleUpperCase())
   console.log(chalk.gray(`> bumping version ${text}.`))
@@ -16,9 +20,16 @@ export const notFoundGitRemote = () => {
   console.log('try run [git remote add <url>] fix it.')
 }
 
+export const pushFailure = () => {
+  const prefix = chalk.red('⬇')
+  const message = chalk.yellow('push failure. you can use "npx done push" after error fix.')
+  const text = `${prefix} ${message}`
+  console.log('')
+  console.log(text)
+}
+
 export const error = (text: string) => {
-  console.log(prefix)
-  console.log(`Error: ${text}`)
+  console.log(`${text}`)
   process.exit(1)
 }
 
@@ -63,4 +74,3 @@ export const showStorageFilePath = (filePath: string) => {
   console.log(chalk.gray(`> ${done} use JSON file to store configs.`))
   console.log(chalk.gray(`> path: ${text}`))
 }
-

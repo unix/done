@@ -1,22 +1,22 @@
 import { join } from 'path'
-import { execSync, exec } from 'child_process'
+import { exec } from 'child_process'
 import { existsSync, readFileSync } from 'fs'
 import * as parse from 'parse-git-config'
 import * as print from './print'
 import * as spinner from './spinner'
-import chalk from 'chalk'
 import { getConfigPath } from './settings'
 
-export const git = (command: string): string | void => {
-  try {
-    return execSync(command)
-      .toString()
-  } catch (err) {
-    if (err.message.includes('Not a git repository')) {
-      return print.exit(print.notGitRepository)
-    }
-    print.error(err)
-  }
+export const gitc = (command: string): Promise<string | void> => {
+  return new Promise((resolve, reject) => {
+    let errLogs = ''
+    const child = exec(command)
+    child.stderr.on('data', data => (errLogs += data))
+    child.on('error', reject)
+    child.once('close', (code, signal) => {
+      if (code === 0) return resolve()
+      reject(new Error(`Exited with ${code || signal}, ${errLogs}`))
+    })
+  })
 }
 
 export const getOrigin = (config: parse.Config): string => {
@@ -47,7 +47,32 @@ const getBranch = (): string | void => {
   return result[1]
 }
 
-export const commitAll = (
+export const pushAll = async (
+  origin: string,
+  branch: string,
+  onlyPush: boolean = false,
+) => {
+  const prefix = onlyPush ? 'only push!' : 'tag ready.'
+  spinner.start(`${prefix} pushing to "${origin}/${branch}".`)
+  try {
+    await gitc(`git push ${origin} ${branch} && git push -u ${origin} ${branch} --tags`)
+    spinner.succeed(true)
+    spinner.start(`pushed to "${origin}/${branch}", everything is done.`)
+    spinner.succeed()
+  } catch (err) {
+    print.pushFailure()
+    print.error(err)
+  }
+}
+
+export const onlyPush = async (userRemote: string) => {
+  const config = parse.sync()
+  const origin = (!userRemote || userRemote === 'auto') ? getOrigin(config) : userRemote
+  const branch = getBranch()
+  await pushAll(origin, branch as string, true)
+}
+
+export const commitAll = async (
   version: string,
   userRemote: string,
   message?: string,
@@ -60,16 +85,18 @@ export const commitAll = (
   const tagMessage = message || version
   
   try {
-    git(`git add -A && git commit -a -m "${version}"`)
+    await gitc(`git add -A && git commit -a -m "${version}"`)
   } catch (err) {
     spinner.fail()
     print.error(err)
   }
   spinner.succeed(true)
+  spinner.start(`updated. ${print.activeColor(version)} released.`)
+  spinner.succeed()
 
   try {
-    spinner.start('committed. tagging...')
-    git(`git tag -a ${version} -m "${tagMessage}"`)
+    spinner.start('tagging...')
+    await gitc(`git tag -a ${version} -m "${tagMessage}"`)
   } catch (err) {
     spinner.fail()
     print.error(err)
@@ -77,28 +104,12 @@ export const commitAll = (
   spinner.succeed(true)
   
   if (!push) {
-    spinner.start(`${version} released. not push.`)
+    spinner.start(`${version} ready. not push.`)
     spinner.succeed()
     return process.exit(1)
   }
   
-  spinner.start(`${version} released. pushing to "${origin}/${branch}".`)
-  const over = () => {
-    spinner.succeed(true)
-    spinner.start(`${chalk.cyan(version)} released. pushed to "${origin}/${branch}".`)
-    spinner.succeed()
-  }
-  const pushCommand = `git push ${origin} ${branch} && git push -u ${origin} ${branch} --tags`
-  const child = exec(pushCommand, err => {
-    if (!err) return
-    let msg = `${err.message}`
-    if (err.cmd && msg.includes(err.cmd)) {
-      msg = msg.split(err.cmd)[1]
-    }
-    console.log('')
-    print.error(msg)
-  })
-  child.once('close', over)
+  await pushAll(origin, branch as string, false)
 }
 
 export const showConfigPath = () => {
