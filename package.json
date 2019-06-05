@@ -21,7 +21,6 @@
     "url": "git+https://github.com/wittbulter/done.git"
   },
   "devDependencies": {
-    "@haifeng-fe/tslint-config": "^1.0.0",
     "@types/node": "^11.11.0",
     "@types/parse-git-config": "^3.0.0",
     "@types/semver": "^5.5.0",
@@ -34,6 +33,7 @@
     "prompts-witt": "^2.2.0",
     "semver": "^5.6.0",
     "tslint": "^5.14.0",
-    "typescript": "^3.3.4000"
+    "tslint-config-lambdas": "^1.0.0",
+    "typescript": "^3.5.1"
   }
 }
