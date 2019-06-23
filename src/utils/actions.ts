@@ -18,13 +18,6 @@ export const gitc = (command: string): Promise<string | void> => {
   })
 }
 
-export const getAfterScript = (): string | null => {
-  const pkgPath = join(process.cwd(), 'package.json')
-  const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'))
-  if (!pkg.scripts || !pkg.scripts.done) return null
-  return pkg.scripts.done
-}
-
 export const getBranch = (): string | void => {
   const headPath = join(process.cwd(), '.git/HEAD')
   if (!existsSync(headPath)) return print.exit(print.notGitRepository)
