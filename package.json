@@ -1,6 +1,7 @@
 {
   "name": "done",
   "version": "1.1.4",
+<<<<<<< HEAD
   "main": "index.js",
   "author": "WittBulter <lambdas.dev@gmail.com>",
   "license": "MIT",
@@ -8,17 +9,48 @@
     "start": "bash ./scripts/dev.sh",
     "lint": "tslint -c tslint.yml -p tsconfig.json",
     "build": "ncc -m build ./src/index.ts && cp bin.js ./dist/"
+=======
+  "main": "dist/index.js",
+  "author": "WittBulter <lambdas.dev@gmail.com>",
+  "license": "MIT",
+  "preferGlobal": true,
+  "scripts": {
+    "start": "func-service dev",
+    "build": "func-service build",
+    "lint": "tslint -c tslint.yml -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.8",
+    "func-service": "^0.1.1",
+    "ncc": "^0.3.6",
+    "ts-node": "^8.2.0",
+    "tslint": "^5.17.0",
+    "tslint-config-lambdas": "^1.1.0",
+    "typescript": "^3.5.2",
+    "ansi-escapes": "^4.2.0",
+    "chalk": "^2.4.2",
+    "func": "^1.1.0",
+    "ora": "^3.4.0",
+    "parse-git-config": "^3.0.0",
+    "prompts-witt": "^2.2.0"
+>>>>>>> refactor: migrate to func
   },
   "bin": {
     "@done": "./dist/bin.js",
     ".done": "./dist/bin.js"
   },
   "files": [
+<<<<<<< HEAD
     "dist"
+=======
+    "dist",
+    "README.md"
+>>>>>>> refactor: migrate to func
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wittbulter/done.git"
+<<<<<<< HEAD
   },
   "devDependencies": {
     "@types/node": "^11.11.0",
@@ -35,5 +67,7 @@
     "tslint": "^5.14.0",
     "tslint-config-lambdas": "^1.0.0",
     "typescript": "^3.5.1"
+=======
+>>>>>>> refactor: migrate to func
   }
 }

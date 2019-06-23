@@ -1,31 +1,7 @@
-import arg from 'arg'
+import * as commands from './commands'
 import * as options from './options'
-import * as changes from './inputs/changes'
-import * as commander from './utils/commander'
-import * as events from './utils/events'
-import { getConfig } from './utils/settings'
+import { Container } from 'func'
 
-const args = arg({
-  '--help': Boolean,
-  '--version': Boolean,
-  '-h': '--help',
-  '-v': '--version',
-})
-const param = args._[0]
-
-;(async() => {
-  const configs = getConfig()
-  
-  // options
-  if (args['--help']) return options.help()
-  if (args['--version']) return options.version()
-  if (param === 'configs') return commander.showConfigPath()
-  if (param === 'push') return commander.onlyPush(configs.remote)
-  
-  const type = await changes.getType()
-  commander.checkGitOrigin()
-
-  const nextVersion = events.updatePackage(type, null) as string
-  const tagMessage = await events.updateHooks(nextVersion, type)
-  await commander.commitAll(nextVersion, configs.remote, tagMessage, configs.autoPush)
-})()
+const modules = Object.assign({}, commands, options)
+const params = Object.keys(modules).map(key => modules[key])
+new Container(params)

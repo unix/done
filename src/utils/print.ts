@@ -1,28 +1,35 @@
 import chalk from 'chalk'
 
-const prefix = chalk.red('cannot release')
+const abort = chalk.red('> Abort.')
+const pkg = `[${chalk.cyan('package.json')}]`
 
 export const activeColor = (text: string): string => {
   return chalk.hex('#bdbdbd')(text)
 }
 
+export const dangerColor = (text: string): string => {
+  return chalk.redBright(text)
+}
+
 export const selectVersion = (version: string): void => {
   const text = chalk.hex('#bdbdbd')(version.toLocaleUpperCase())
-  console.log(chalk.gray(`> bumping version ${text}.`))
+  console.log(chalk.gray(`> Bumping version ${text}.`))
 }
 
 export const notGitRepository = () => {
-  console.log(`${prefix}: Directory is not a Git repository.`)
+  console.log(`${abort} Directory is not a Git repository.`)
 }
 
 export const notFoundGitRemote = () => {
-  console.log(`${prefix}: not found Git Remote.`)
-  console.log('try run [git remote add <url>] fix it.')
+  console.log(`${abort} Not found git remote.`)
+  const recommand = chalk.cyan('git remote add <url>')
+  console.log(`  Try run [${recommand}] fix it.`)
 }
 
 export const pushFailure = () => {
   const prefix = chalk.red('⬇')
-  const message = chalk.yellow('push failure. you can use "npx done push" after error fix.')
+  const recommand = chalk.cyan('npx done push')
+  const message = chalk.yellow(`Push failure. You can use "${recommand}" after error fix.`)
   const text = `${prefix} ${message}`
   console.log('')
   console.log(text)
@@ -33,44 +40,33 @@ export const error = (text: string) => {
   process.exit(1)
 }
 
+export const catchErr = (err: Error): void => {
+  const msg = err.message || `${err}`
+  console.log(dangerColor(`> ${msg}`))
+  process.exit(1)
+}
+
 export const exit = (next: Function) => {
   next()
   process.exit(1)
 }
 
 export const notFoundPackage = () => {
-  console.log(`${prefix}: [package.json] not found.`)
+  console.log(`${abort} ${pkg} not found.`)
 }
 
 export const cantParsePackage = () => {
-  console.log(`${prefix}: couldn\'t parse [package.json].`)
+  console.log(`${abort} couldn\'t parse ${pkg}.`)
 }
 
 export const cantWritePackage = () => {
-  console.log(`${prefix}: couldn\'t write to [package.json].`)
+  console.log(`${abort} couldn\'t write to ${pkg}.`)
 }
 
 export const notFoundVerionInPackage = () => {
-  console.log(`${prefix}: no "version" field inside [package.json].`)
+  console.log(`${abort} Missing "version" field inside ${pkg}.`)
 }
 
 export const cantParseGitConfig = () => {
-  console.log(`${prefix}: couldn\'t parse git config.`)
-}
-
-// export const notFoundSettingKey = (key: string) => {
-//   const text = chalk.red(key)
-//   console.log(chalk.gray(`> not found setting key: ${text}`))
-// }
-
-export const storageFileBroken = (filePath: string) => {
-  console.log(chalk.gray('> storage file syntax error'))
-  console.log(chalk.gray(`> remove file and try agian: ${filePath}`))
-}
-
-export const showStorageFilePath = (filePath: string) => {
-  const done = chalk.green('done')
-  const text = chalk.yellow(filePath)
-  console.log(chalk.gray(`> ${done} use JSON file to store configs.`))
-  console.log(chalk.gray(`> path: ${text}`))
+  console.log(`${abort} couldn\'t parse git config.`)
 }

@@ -39,3 +39,5 @@ export const DEFAULT_SETTINGS: SETTINGS = {
   autoPush: true,
   remote: 'auto',
 }
+
+export const STORE_NAME = 'done'
