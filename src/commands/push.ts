@@ -1,6 +1,5 @@
 import { Command } from 'func'
-import * as print from '../utils/print'
-import * as actions from '../utils/actions'
+import { print, actions } from '../utils'
 
 @Command({
   name: 'push', alias: 'p',

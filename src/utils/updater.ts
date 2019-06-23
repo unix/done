@@ -1,4 +1,4 @@
-import { CHANGE_TYPES } from '../constants/configs'
+import { CHANGE_TYPES } from './configs'
 import { inc, prerelease, ReleaseType } from 'semver'
 
 

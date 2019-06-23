@@ -3,7 +3,7 @@ import { existsSync, readFileSync, writeFileSync } from 'fs'
 import * as print from './print'
 import * as updater from './updater'
 import * as spinner from './spinner'
-import { CHANGE_INFOS, ChangeInfo } from '../constants/configs'
+import { CHANGE_INFOS, ChangeInfo } from './configs'
 
 
 export const updatePackage = (type: string, suffix: string | null): string | void => {

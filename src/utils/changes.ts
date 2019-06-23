@@ -1,7 +1,7 @@
 import * as print from './print'
 import prompts from 'prompts-witt'
 import ansiEscapes from 'ansi-escapes'
-import { CHANGE_INFOS } from '../constants/configs'
+import { CHANGE_INFOS } from './configs'
 
 const choices = Object.keys(CHANGE_INFOS)
   .reverse()

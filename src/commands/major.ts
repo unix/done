@@ -1,8 +1,5 @@
 import { CommandMajor } from 'func'
-import * as actions from '../utils/actions'
-import * as changes from '../utils/changes'
-import * as events from '../utils/events'
-import * as print from '../utils/print'
+import { actions, changes, events, print} from '../utils'
 
 @CommandMajor()
 export class Major {
