@@ -8,7 +8,8 @@
   "scripts": {
     "start": "func-service dev",
     "build": "func-service build",
-    "lint": "tslint -c tslint.yml -p tsconfig.json"
+    "lint": "tslint -c tslint.yml -p tsconfig.json",
+    "release": "yarn build && yarn publish --non-interactive"
   },
   "devDependencies": {
     "@types/node": "^12.0.8",
