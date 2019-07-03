@@ -35,26 +35,6 @@
   ],
   "repository": {
     "type": "git",
-<<<<<<< HEAD
     "url": "git+https://github.com/wittbulter/done.git"
-=======
-    "url": "git+https://github.com/unix/done.git"
-  },
-  "devDependencies": {
-    "@types/node": "^11.11.0",
-    "@types/parse-git-config": "^3.0.0",
-    "@types/semver": "^5.5.0",
-    "ansi-escapes": "^4.1.0",
-    "arg": "^4.1.0",
-    "chalk": "^2.4.2",
-    "ncc": "^0.3.6",
-    "ora": "^3.2.0",
-    "parse-git-config": "^3.0.0",
-    "prompts-witt": "^2.2.0",
-    "semver": "^5.6.0",
-    "tslint": "^5.14.0",
-    "tslint-config-lambdas": "^1.0.0",
-    "typescript": "^3.5.1"
->>>>>>> chore: update username
   }
 }
