@@ -1,8 +1,8 @@
 {
   "name": "done",
-  "version": "1.1.6-canary.0",
+  "version": "1.1.6",
   "main": "dist/index.js",
-  "author": "WittBulter <lambdas.dev@gmail.com>",
+  "author": "unix <lambdas.dev@gmail.com>",
   "license": "MIT",
   "preferGlobal": true,
   "scripts": {
@@ -35,6 +35,6 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wittbulter/done.git"
+    "url": "git+https://github.com/unix/done.git"
   }
 }
