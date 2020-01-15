@@ -1,6 +1,6 @@
 {
   "name": "done",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "main": "dist/index.js",
   "author": "unix <lambdas.dev@gmail.com>",
   "license": "MIT",
