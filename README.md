@@ -58,14 +58,14 @@ export interface HookMetas {
 ### Why
 
 - why use `npx` instead of install?
-    1. `done` very small and no dependences (published), the online experience is great. 
+    1. `done` very small and no dependences (published), the online experience is great.
     2. make your computer cleaner.
-    3. conflict with `shell` reservations, if you must download and use it, try `@done`.
-    
+    3. conflict with `shell` reservations, if you must download to the global, try `DONE`.
+
 - why can't add files when release?
     1. `done` jsut to help you add tags.
     2. add files requires GitHub(or other) authentication.
-    
+
 - why NPX is so fast?
     1. i used `ncc` pack files, it worked amazingly well.
     2. i use `arg` instead of `commander`.

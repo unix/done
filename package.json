@@ -27,7 +27,7 @@
     "prompts-witt": "^2.2.0"
   },
   "bin": {
-    "@done": "./dist/bin.js"
+    "done": "./dist/bin.js"
   },
   "files": [
     "dist",
